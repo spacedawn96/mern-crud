@@ -1,4 +1,0 @@
-{
-  "db": "mongodb+srv://dbuser:1245789@cluster0-kadjc.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "sl_myJwtSecret"
-}
