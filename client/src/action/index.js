@@ -1,4 +1,6 @@
 import { get } from 'axios';
+import { tokenConfig } from '../action/authActions';
+import axios from 'axios';
 
 export const SET_POSTS = 'SET_POSTS';
 export const ADD_POST = 'ADD_POST';
@@ -27,11 +29,13 @@ export const setPosts = () => dispatch => {
     });
 };
 
-export const addPost = data => {
-  return {
-    type: ADD_POST,
-    post: data
-  };
+export const addPost = data => (dispatch, getState) => {
+  axios.post('/api/post', data, tokenConfig(getState)).then(res =>
+    dispatch({
+      type: ADD_POST,
+      post: res.data
+    })
+  );
 };
 
 export const setPost = data => {
@@ -41,11 +45,18 @@ export const setPost = data => {
   };
 };
 
-export const removePost = _id => {
-  return {
-    type: REMOVE_POST,
-    _id: _id
-  };
+export const removePost = _id => (dispatch, getState) => {
+  axios
+    .delete(`/api/post/${_id}`, tokenConfig(getState))
+    .then(function() {
+      dispatch({
+        type: REMOVE_POST,
+        payload: _id
+      });
+    })
+    .catch(function(error) {
+      console.log('error', error);
+    });
 };
 
 export const replacePost = data => {

@@ -17,17 +17,12 @@ function Postinfo(props) {
         console.log('error', error);
       });
   }, [dispatch, props]);
-  const handleDelete = () => {
-    axios
-      .delete(`/api/post/${pos._id}`)
-      .then(() => {
-        dispatch(removePost(pos._id));
-        props.history.push('/');
-      })
-      .catch(error => {
-        console.log('error', error);
-      });
-  };
+
+  function handleDelete() {
+    dispatch(removePost(pos._id));
+
+    props.history.push('/');
+  }
 
   return (
     <div>

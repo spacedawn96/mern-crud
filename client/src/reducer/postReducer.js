@@ -13,7 +13,7 @@ export default function postReducer(state = initialState, action) {
     case ADD_POST:
       return [action.post, ...state];
     case REMOVE_POST:
-      return state.filter(post => post._id !== action._id);
+      return state.filter(post => post._id !== action.payload);
     case REPLACE_POST:
       return state.map(post => {
         if (post._id === action.post._id) {

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { post } from 'axios';
 import { addPost } from '../action/index';
 
+import { tokenConfig } from '../action/authActions';
+
 function Addpost(props) {
   const initialState = { title: '', content: '' };
   const [inputs, setFields] = useState(initialState);
@@ -10,19 +12,19 @@ function Addpost(props) {
 
   const handleChange = event => {
     setFields({ ...inputs, [event.target.name]: event.target.value });
-    console.log(inputs);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (!inputs.title || !inputs.content) return;
-    post('/api/post', { title: inputs.title, content: inputs.content })
-      .then(response => {
-        dispatch(addPost(response.data));
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
+    const newpost = {
+      title: inputs.title,
+      content: inputs.content
+    };
+
+    dispatch(addPost(newpost));
+
+    console.log(newpost);
   };
 
   return (

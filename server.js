@@ -5,15 +5,14 @@ const app = express();
 
 app.use(express.json());
 
+const db = config.get('db');
+
 mongoose
-  .connect(
-    '',
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      seUnifiedTopology: true
-    }
-  )
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    seUnifiedTopology: true
+  })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
