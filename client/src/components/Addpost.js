@@ -10,6 +10,7 @@ function Addpost(props) {
 
   const handleChange = event => {
     setFields({ ...inputs, [event.target.name]: event.target.value });
+    console.log(inputs);
   };
 
   const handleSubmit = event => {

@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
+const auth = require('../middleware/auth');
 
-router.get('/post', (req, res) => {
+router.get('/', (req, res) => {
   Post.find((err, post) => {
     res.json(post);
   });
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     if (!post) {
       res.status(404).send('No result found');
@@ -18,7 +19,7 @@ router.get('/post/:id', (req, res) => {
   });
 });
 
-router.post('/post', (req, res) => {
+router.post('/', auth, (req, res) => {
   let post = new Post(req.body);
   post
     .save()
@@ -30,7 +31,7 @@ router.post('/post', (req, res) => {
     });
 });
 
-router.patch('/post/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
   Post.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json('updated');
@@ -40,7 +41,7 @@ router.patch('/post/:id', (req, res) => {
     });
 });
 
-router.delete('/post/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     if (!post) {
       res.status(404).send('post not found');

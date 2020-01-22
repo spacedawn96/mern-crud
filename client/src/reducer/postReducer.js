@@ -9,20 +9,20 @@ const initialState = { post: [] };
 export default function postReducer(state = initialState, action) {
   switch (action.type) {
     case SET_POSTS:
-      return action.post;
+      return action.posts;
     case ADD_POST:
-      return [action.payload, ...state];
+      return [action.post, ...state];
     case REMOVE_POST:
-      return state.filter(payload => payload._id !== action._id);
+      return state.filter(post => post._id !== action._id);
     case REPLACE_POST:
-      return state.map(payload => {
-        if (payload._id === action.payload._id) {
+      return state.map(post => {
+        if (post._id === action.post._id) {
           return {
-            ...payload,
-            title: action.payload.title,
-            content: action.payload.content
+            ...post,
+            title: action.post.title,
+            content: action.post.content
           };
-        } else return payload;
+        } else return post;
       });
     default:
       return state;
