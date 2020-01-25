@@ -31,7 +31,7 @@ router.post('/', auth, (req, res) => {
     });
 });
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', auth, (req, res) => {
   Post.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json('updated');

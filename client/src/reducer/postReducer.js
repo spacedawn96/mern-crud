@@ -5,8 +5,11 @@ import {
   REPLACE_POST
 } from '../action/index';
 
-const initialState = { post: [] };
-export default function postReducer(state = initialState, action) {
+const init = {
+  post: []
+};
+
+export default function(state = init, action) {
   switch (action.type) {
     case SET_POSTS:
       return action.posts;

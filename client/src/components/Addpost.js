@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { post } from 'axios';
 import { addPost } from '../action/index';
 
@@ -9,6 +9,7 @@ function Addpost(props) {
   const initialState = { title: '', content: '' };
   const [inputs, setFields] = useState(initialState);
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
 
   const handleChange = event => {
     setFields({ ...inputs, [event.target.name]: event.target.value });
@@ -19,7 +20,8 @@ function Addpost(props) {
 
     const newpost = {
       title: inputs.title,
-      content: inputs.content
+      content: inputs.content,
+      user: auth.user
     };
 
     dispatch(addPost(newpost));

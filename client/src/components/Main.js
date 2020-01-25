@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Addpost from './Addpost';
 import Header from './Header';
 function Main() {
   const posts = useSelector(state => state.posts);
+  useEffect(() => {
+    console.log(posts);
+  });
   return (
     <div>
       <Header />
       <Addpost />
-
       <h2>Post</h2>
       {posts.length &&
         posts.map(post => {
@@ -20,6 +22,7 @@ function Main() {
                 <Link to={`/post/${post._id}`}>{post.title}</Link>
               </h4>
               <small>id: {post._id}</small>
+              <small>name: </small>
             </div>
           );
         })}

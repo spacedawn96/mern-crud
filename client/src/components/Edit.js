@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { patch } from 'axios';
 import { setPost, replacePost } from '../action/index';
+import axios from 'axios';
 
 function Edit(props) {
   const initialState = useSelector(state => state.pos);
@@ -15,20 +16,11 @@ function Edit(props) {
   const handleSubmit = event => {
     event.preventDefault();
     if (!data.title || !data.content) return;
-    patch(`/api/post/${data._id}`, {
-      title: data.title,
-      content: data.content
-    })
-      .then(response => {
-        dispatch(setPost(data));
-        dispatch(replacePost(data));
-      })
-      .then(() => {
-        props.history.push(`/post/${data._id}`);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
+    dispatch(setPost(data));
+    dispatch(replacePost(data));
+
+    props.history.push(`/post/${data._id}`);
   };
 
   const handleCancel = () => {

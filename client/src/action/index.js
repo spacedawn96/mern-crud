@@ -38,11 +38,13 @@ export const addPost = data => (dispatch, getState) => {
   );
 };
 
-export const setPost = data => {
-  return {
-    type: SET_POST,
-    post: data
-  };
+export const setPost = data => (dispatch, getState) => {
+  axios.get(`/api/post/${data._id}`, data, tokenConfig(getState)).then(res => {
+    dispatch({
+      type: SET_POST,
+      post: res.data
+    });
+  });
 };
 
 export const removePost = _id => (dispatch, getState) => {
@@ -59,9 +61,11 @@ export const removePost = _id => (dispatch, getState) => {
     });
 };
 
-export const replacePost = data => {
-  return {
-    type: REPLACE_POST,
-    post: data
-  };
+export const replacePost = data => (dispatch, getState) => {
+  axios.patch(`/api/post/${data._id}`, data, tokenConfig(getState)).then(() =>
+    dispatch({
+      type: REPLACE_POST,
+      post: data
+    })
+  );
 };

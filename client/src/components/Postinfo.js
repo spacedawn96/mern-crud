@@ -17,11 +17,12 @@ function Postinfo(props) {
         console.log('error', error);
       });
   }, [dispatch, props]);
-
   function handleDelete() {
     dispatch(removePost(pos._id));
 
     props.history.push('/');
+
+    console.log(pos._id);
   }
 
   return (
