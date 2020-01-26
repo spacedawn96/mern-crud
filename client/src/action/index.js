@@ -47,18 +47,15 @@ export const setPost = data => (dispatch, getState) => {
   });
 };
 
-export const removePost = _id => (dispatch, getState) => {
-  axios
-    .delete(`/api/post/${_id}`, tokenConfig(getState))
-    .then(function() {
+export const removePost = deluser => (dispatch, getState) => {
+  axios.delete(`/api/post/${deluser._id}`, tokenConfig(getState)).then(() => {
+    if (deluser.userdel == deluser.authdel) {
       dispatch({
         type: REMOVE_POST,
-        payload: _id
+        payload: deluser
       });
-    })
-    .catch(function(error) {
-      console.log('error', error);
-    });
+    }
+  });
 };
 
 export const replacePost = data => (dispatch, getState) => {

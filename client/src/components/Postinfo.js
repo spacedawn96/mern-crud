@@ -6,6 +6,8 @@ import { setPost, removePost } from '../action/index';
 
 function Postinfo(props) {
   const pos = useSelector(state => state.pos);
+  const posts = useSelector(state => state.posts);
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     axios
@@ -18,25 +20,41 @@ function Postinfo(props) {
       });
   }, [dispatch, props]);
   function handleDelete() {
-    dispatch(removePost(pos._id));
+    const deluser = {
+      _id: pos._id,
+      userdel: pos.user,
+      authdel: auth.user.name
+    };
+    dispatch(removePost(deluser));
+    console.log(pos.user);
+    console.log(auth.user);
 
     props.history.push('/');
-
-    console.log(pos._id);
   }
 
+  const authuser = (
+    <div>
+      {pos.user == auth.user.name ? (
+        <div>
+          <button type="button" onClick={handleDelete}>
+            Delete
+          </button>
+          <Link to={{ pathname: `/post/${pos._id}/edit` }}>
+            <button>Edit </button>
+          </Link>
+        </div>
+      ) : (
+        ''
+      )}
+    </div>
+  );
   return (
     <div>
       <h2>{pos.title}</h2>
       <small>id: {pos._id}</small>
       <p>{pos.content}</p>
       <div>
-        <button type="button" onClick={handleDelete}>
-          Delete
-        </button>
-        <Link to={{ pathname: `/post/${pos._id}/edit` }}>
-          <button>Edit </button>
-        </Link>
+        {authuser}
         <Link to="/">
           <button>Close </button>
         </Link>

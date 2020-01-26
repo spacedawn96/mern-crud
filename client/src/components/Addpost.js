@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { post } from 'axios';
 import { addPost } from '../action/index';
@@ -6,7 +6,7 @@ import { addPost } from '../action/index';
 import { tokenConfig } from '../action/authActions';
 
 function Addpost(props) {
-  const initialState = { title: '', content: '' };
+  const initialState = { title: '', content: '', name: '' };
   const [inputs, setFields] = useState(initialState);
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
@@ -21,12 +21,10 @@ function Addpost(props) {
     const newpost = {
       title: inputs.title,
       content: inputs.content,
-      user: auth.user
+      user: auth.user.name
     };
 
     dispatch(addPost(newpost));
-
-    console.log(newpost);
   };
 
   return (

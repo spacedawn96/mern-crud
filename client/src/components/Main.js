@@ -5,9 +5,7 @@ import Addpost from './Addpost';
 import Header from './Header';
 function Main() {
   const posts = useSelector(state => state.posts);
-  useEffect(() => {
-    console.log(posts);
-  });
+
   return (
     <div>
       <Header />
@@ -22,7 +20,8 @@ function Main() {
                 <Link to={`/post/${post._id}`}>{post.title}</Link>
               </h4>
               <small>id: {post._id}</small>
-              <small>name: </small>
+              <br />
+              <small>name:{post.user} </small>
             </div>
           );
         })}

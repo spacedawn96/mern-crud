@@ -12,7 +12,7 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 
 function App() {
-  const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+  const store = createStore(rootReducer, applyMiddleware(thunk));
   store.dispatch(setPosts());
 
   useEffect(() => {

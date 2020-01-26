@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
 const auth = require('../middleware/auth');
+const User = require('../models/User');
 
 router.get('/', (req, res) => {
   Post.find((err, post) => {
