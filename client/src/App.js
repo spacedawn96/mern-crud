@@ -8,7 +8,6 @@ import rootReducer from './reducer/index';
 import { setPosts } from './action/index';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 
 function App() {

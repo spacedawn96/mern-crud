@@ -3,7 +3,7 @@ import { register } from '../../action/authActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { post } from 'axios';
 
-function Register() {
+const Register = React.memo(() => {
   const [inputs, setinput] = useState({
     name: '',
     email: '',
@@ -86,6 +86,6 @@ function Register() {
       </div>
     </div>
   );
-}
+});
 
 export default Register;

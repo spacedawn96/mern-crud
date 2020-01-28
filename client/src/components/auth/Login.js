@@ -4,7 +4,7 @@ import { clearErrors } from '../../action/errorActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { post } from 'axios';
 
-function Login() {
+const Login = React.memo(() => {
   const [input, setinputs] = useState({
     email: '',
     password: ''
@@ -83,6 +83,6 @@ function Login() {
       </div>
     </div>
   );
-}
+});
 
 export default Login;

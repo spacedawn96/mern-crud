@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { post } from 'axios';
 import { addPost } from '../action/index';
 
-import { tokenConfig } from '../action/authActions';
-
-function Addpost(props) {
-  const initialState = { title: '', content: '', name: '' };
+const Addpost = React.memo(() => {
+  const renders = useRef(0);
+  console.log('renders', renders.current++);
+  const initialState = { title: '', content: '' };
   const [inputs, setFields] = useState(initialState);
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
 
   const handleChange = event => {
     setFields({ ...inputs, [event.target.name]: event.target.value });
+    console.log(inputs);
   };
 
   const handleSubmit = event => {
+    if (!auth.isAuthenticated) {
+      event.preventDefault();
+      return;
+    }
     event.preventDefault();
 
     const newpost = {
@@ -57,6 +61,6 @@ function Addpost(props) {
       </form>
     </div>
   );
-}
+});
 
 export default Addpost;

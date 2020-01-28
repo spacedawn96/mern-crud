@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,7 @@ function Postinfo(props) {
         console.log('error', error);
       });
   }, [dispatch, props]);
+
   function handleDelete() {
     const deluser = {
       _id: pos._id,
@@ -26,22 +27,26 @@ function Postinfo(props) {
       authdel: auth.user.name
     };
     dispatch(removePost(deluser));
-    console.log(pos.user);
-    console.log(auth.user);
-
+    console.log(auth);
     props.history.push('/');
   }
 
   const authuser = (
     <div>
-      {pos.user == auth.user.name ? (
+      {auth.isAuthenticated ? (
         <div>
-          <button type="button" onClick={handleDelete}>
-            Delete
-          </button>
-          <Link to={{ pathname: `/post/${pos._id}/edit` }}>
-            <button>Edit </button>
-          </Link>
+          {pos.user == auth.user.name ? (
+            <div>
+              <button type="button" onClick={handleDelete}>
+                Delete
+              </button>
+              <Link to={{ pathname: `/post/${pos._id}/edit` }}>
+                <button>Edit </button>
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       ) : (
         ''
